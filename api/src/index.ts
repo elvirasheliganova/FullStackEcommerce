@@ -1,7 +1,8 @@
 
 
 import express, {json, urlencoded} from 'express'
-import ProductsRouter from './routes/products/index'
+import productsRouter from './routes/products/index'
+import authRoutes from './routes/auth/index'
 
 
 const app = express()
@@ -16,7 +17,8 @@ app.get('/', (req:any, res:any) => {
  })
 
  
- app.use('/products', ProductsRouter)
+ app.use('/products', productsRouter)
+ app.use('/auth', authRoutes)
 
  app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

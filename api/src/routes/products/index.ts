@@ -10,6 +10,7 @@ import { validateData } from '../..//middlewares/validationMiddleware'
 import { createProductSchema, updateProductSchema } from '../../db/productsSchema'
 import { z } from "zod"
 import { productsTable } from '../../db/productsSchema'
+import verifyToken, { verifySeller } from '../../middlewares/authMiddleware'
 
 
 const router = Router()
@@ -18,11 +19,11 @@ router.get('/', listProducts)
 
 router.get('/:id', getProductById)
 
-router.post('/', validateData(createProductSchema), createProduct)
+router.post('/',  verifyToken, verifySeller, validateData(createProductSchema), createProduct)
 
-router.put('/:id', validateData(createProductSchema), updateProduct)
+router.put('/:id',verifyToken, verifySeller, validateData(createProductSchema), updateProduct)
 
-router.delete('/:id', deleteProduct)
+router.delete('/:id', verifyToken, verifySeller, deleteProduct)
 
 
 
