@@ -1,0 +1,25 @@
+name: FullStackEcommerce
+region: us-east-1
+yamlVersion: 2
+services:
+    databases:
+        - name: dynamic-starfish-db
+          type: postgres-neon
+backend:
+    path: api
+    language:
+        name: js
+        runtime: nodejs20.x
+    functions:
+        - name: serverless
+          path: .
+          handler: handler
+          entry: dist/src/index.js
+          type: aws
+    scripts:
+        deploy:
+            - npm install
+            - npm run build
+        local:
+            - npm install
+            - npm run build

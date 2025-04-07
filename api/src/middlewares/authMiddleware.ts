@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import  jwt  from 'jsonwebtoken'
-import { z, ZodError } from 'zod';
+//import { z, ZodError } from 'zod';
 import  _  from 'lodash'
 
 export default function verifyToken(req: Request, res: Response, next: NextFunction){
@@ -15,6 +15,7 @@ export default function verifyToken(req: Request, res: Response, next: NextFunct
 const decoded = jwt.verify(token, 'your-secret')
 console.log(decoded)
 if (typeof decoded !== 'object' ||  !decoded?.userId ) {
+  res.status(401).json({error: 'Access denied'})
   return
 }
 req.userId = decoded.userId

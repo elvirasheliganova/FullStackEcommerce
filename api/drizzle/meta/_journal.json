@@ -36,6 +36,13 @@
       "when": 1743780104768,
       "tag": "0004_fuzzy_black_panther",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1743966868556,
+      "tag": "0005_damp_star_brand",
+      "breakpoints": true
     }
   ]
 }
