@@ -1,11 +1,17 @@
-import { FlatList} from "react-native";
+import { ActivityIndicator, FlatList} from "react-native";
 import  ProductListItem  from "../components/ProductListItem";
-import products from '../assets/products.json'
+import { Text } from "react-native";
 import { useBreakpointValue } from "@/components/ui/utils/use-break-point-value";
+import { listProducts } from "@/api/products";
+import { useQuery } from "@tanstack/react-query";
 
 
 export default function Page() {
 
+ const { data, isLoading, error } = useQuery({
+  queryKey: ['products'],
+  queryFn: listProducts
+ })
 
 const numColumns = useBreakpointValue({
   default: 2,
@@ -13,11 +19,18 @@ const numColumns = useBreakpointValue({
   l: 4
 })
 
+if(isLoading) {
+  return <ActivityIndicator />
+}
+
+if (error) {
+  return <Text>Erroor fetching products</Text>
+}
    return (
     
    <FlatList 
       key={numColumns}
-       data = {products}
+       data = {data}
        numColumns = {numColumns}
        contentContainerClassName="gap-2  max-w-[960px] mx-auto w-full "
        columnWrapperClassName="gap-2"
